@@ -15,11 +15,13 @@ class BaseResponse(BaseModel):
 
 
 class ErrorResponse(BaseResponse):
-    """Error response model."""
+    """Error response model with enhanced error information (v1.1.0+)."""
     
     success: bool = False
-    error_code: Optional[str] = None
-    details: Optional[Dict[str, Any]] = None
+    error_code: Optional[str] = Field(None, description="Specific error code for categorization")
+    details: Optional[Dict[str, Any]] = Field(None, description="Additional error context and details")
+    request_id: Optional[str] = Field(None, description="Unique request identifier for debugging")
+    support_url: Optional[str] = Field(None, description="URL to error-specific documentation")
 
 
 class DatasetCreate(BaseModel):

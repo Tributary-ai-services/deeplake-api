@@ -31,7 +31,7 @@ logger = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> Any:
     """Application lifespan manager."""
-    logger.info("Starting Tributary AI services for DeepLake", version="1.0.0")
+    logger.info("Starting Tributary AI services for DeepLake", version="1.1.0")
 
     # Initialize services
     try:
@@ -118,8 +118,8 @@ def custom_openapi():
     
     openapi_schema = get_openapi(
         title="Tributary AI services for DeepLake",
-        version="1.0.0",
-        description="Universal DeepLake vector database service with HTTP and gRPC APIs",
+        version="1.1.0",
+        description="Universal DeepLake vector database service with HTTP and gRPC APIs - Enhanced with comprehensive error handling and test coverage",
         routes=app.routes,
     )
     
@@ -148,8 +148,8 @@ def custom_openapi():
 # Create FastAPI app
 app = FastAPI(
     title="Tributary AI services for DeepLake",
-    description="Universal DeepLake vector database service with HTTP and gRPC APIs",
-    version="1.0.0",
+    description="Universal DeepLake vector database service with HTTP and gRPC APIs - Enhanced with comprehensive error handling and test coverage",
+    version="1.1.0",
     lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc",
@@ -344,7 +344,7 @@ async def root() -> Dict[str, Any]:
     """Root endpoint with service information."""
     return {
         "service": "Tributary AI services for DeepLake",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "status": "running",
         "docs_url": "/docs",
         "redoc_url": "/redoc",

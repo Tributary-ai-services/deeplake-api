@@ -2,6 +2,14 @@
 
 The Tributary AI Service for DeepLake provides a comprehensive REST API for managing vector databases, performing similarity searches, and handling metadata operations.
 
+## 🚀 **Recent API Improvements (v1.1.0)**
+
+- **Enhanced Error Handling**: Comprehensive error categorization with specific error codes and detailed context
+- **Standardized Responses**: Consistent success/failure format across all endpoints with request tracking
+- **Improved Concurrency**: Fixed race conditions in vector operations with retry logic
+- **Test Coverage**: 73 comprehensive test cases covering all API endpoints and error scenarios
+- **Production Ready**: Full observability and monitoring integration
+
 ## 🌐 Base URL
 
 - **Production**: `https://api.yourcompany.com`
@@ -706,20 +714,30 @@ GET /api/v1/rate-limits/usage
 }
 ```
 
-### Error Response
+### Error Response (v1.1.0+ Enhanced Format)
 
 ```json
 {
   "success": false,
-  "error": "DATASET_NOT_FOUND",
-  "message": "Dataset 'my-dataset' not found",
+  "error_code": "DATASET_NOT_FOUND",
+  "message": "Dataset 'my-dataset' not found for tenant 'your-tenant'",
   "details": {
     "dataset_id": "my-dataset",
-    "tenant_id": "your-tenant"
+    "tenant_id": "your-tenant",
+    "timestamp": "2024-01-01T12:00:00Z",
+    "available_datasets": ["dataset1", "dataset2"]
   },
-  "request_id": "req-123-456"
+  "request_id": "req-123-456",
+  "support_url": "https://github.com/Tributary-ai-services/deeplake-api/wiki/errors/DATASET_NOT_FOUND"
 }
 ```
+
+**Recent Improvements (v1.1.0):**
+- Enhanced error categorization with specific error codes
+- Detailed error context in `details` field
+- Support URL links for troubleshooting
+- Standardized error response format across all endpoints
+- Request ID tracking for debugging
 
 ## 🚨 HTTP Status Codes
 

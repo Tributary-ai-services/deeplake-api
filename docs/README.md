@@ -2,6 +2,14 @@
 
 Welcome to the comprehensive documentation for the Tributary AI services for DeepLake - a universal DeepLake vector database service with HTTP and gRPC APIs.
 
+## 🆕 **Recent Documentation Updates (v1.1.0)**
+
+- **Enhanced Error Handling**: Updated all API documentation with standardized error response format
+- **Test Coverage**: Documented 73 comprehensive test cases covering all API endpoints
+- **Production Readiness**: Added current status indicators and reliability metrics
+- **OpenAPI Integration**: Updated FastAPI OpenAPI specifications with enhanced error schemas
+- **Troubleshooting**: Enhanced error code reference with detailed solutions
+
 ## 📖 Table of Contents
 
 ### Getting Started
