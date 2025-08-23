@@ -82,7 +82,7 @@ If you prefer to set up Grafana manually:
    ```
 
 2. **Configure Prometheus Data Source**:
-   - URL: `http://prometheus:9090` (if using docker-compose) or `http://localhost:9090`
+   - URL: `http://prometheus:9091` (if using docker-compose) or `http://localhost:9091`
    - Access: Server (default)
    - HTTP Method: GET
 

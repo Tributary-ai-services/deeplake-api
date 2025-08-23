@@ -14,7 +14,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - "9090:9090"
+      - "9090:9091"
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -91,12 +91,12 @@ rule_files:
 scrape_configs:
   - job_name: 'deeplake-api'
     static_configs:
-      - targets: ['deeplake-api:9090']
+      - targets: ['deeplake-api:9091']
     metrics_path: '/metrics'
 
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:9091']
 
   - job_name: 'node'
     static_configs:
@@ -135,7 +135,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://prometheus:9090
+    url: http://prometheus:9091
     isDefault: true
     editable: true
 EOF
@@ -176,14 +176,14 @@ docker-compose -f docker-compose.yml -f docker-compose.monitoring.yml logs -f
 ```bash
 # Check all endpoints
 curl -s http://localhost:8000/api/v1/health | jq .
-curl -s http://localhost:9090/-/healthy
+curl -s http://localhost:9091/-/healthy
 curl -s http://localhost:3000/api/health
 curl -s http://localhost:9093/-/healthy
 ```
 
 ### 2. Access Web UIs
 
-- **Prometheus**: http://localhost:9090
+- **Prometheus**: http://localhost:9091
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **AlertManager**: http://localhost:9093
 - **API Metrics**: http://localhost:8000/metrics
@@ -297,7 +297,7 @@ Create a new dashboard with these panels:
 curl http://localhost:8000/metrics | grep http_requests_total
 
 # Check Prometheus targets
-curl http://localhost:9090/api/v1/targets | jq '.data.activeTargets[] | {job:.labels.job, health:.health}'
+curl http://localhost:9091/api/v1/targets | jq '.data.activeTargets[] | {job:.labels.job, health:.health}'
 
 # Check API logs
 docker logs deeplake-api | grep metrics
@@ -307,7 +307,7 @@ docker logs deeplake-api | grep metrics
 
 ```bash
 # Test Prometheus from Grafana container
-docker exec grafana curl http://prometheus:9090/api/v1/query?query=up
+docker exec grafana curl http://prometheus:9091/api/v1/query?query=up
 
 # Check network connectivity
 docker network inspect deeplake-network

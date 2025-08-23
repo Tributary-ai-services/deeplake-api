@@ -250,7 +250,7 @@ spec:
         ports:
         - containerPort: 8000
           name: http
-        - containerPort: 9090
+        - containerPort 9091
           name: metrics
         env:
         - name: REDIS_URL
@@ -331,8 +331,8 @@ spec:
   - port: 80
     targetPort: 8000
     name: http
-  - port: 9090
-    targetPort: 9090
+  - port 9091
+    targetPort 9091
     name: metrics
   type: ClusterIP
 ```
@@ -726,7 +726,7 @@ spec:
           name: monitoring
     ports:
     - protocol: TCP
-      port: 9090
+      port 9091
   egress:
   - to:
     - namespaceSelector:
@@ -799,7 +799,7 @@ rule_files:
 scrape_configs:
   - job_name: 'deeplake-api'
     static_configs:
-      - targets: ['deeplake-api:9090']
+      - targets: ['deeplake-api:9091']
     metrics_path: '/metrics'
     scrape_interval: 15s
     scrape_timeout: 10s

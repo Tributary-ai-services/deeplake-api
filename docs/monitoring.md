@@ -66,7 +66,7 @@ rule_files:
 scrape_configs:
   - job_name: 'deeplake-api'
     static_configs:
-      - targets: ['deeplake-api:9090']
+      - targets: ['deeplake-api:9091']
     metrics_path: '/metrics'
     scrape_interval: 15s
     scrape_timeout: 10s

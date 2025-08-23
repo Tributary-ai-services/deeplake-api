@@ -16,7 +16,7 @@ kubectl get pods -n deeplake-prod
 
 # Expected services:
 # - deeplake-api (port 8000)
-# - prometheus (port 9090)
+# - prometheus (port 9091)
 # - grafana (port 3000)
 # - alertmanager (port 9093)
 ```
@@ -27,7 +27,7 @@ kubectl get pods -n deeplake-prod
 curl http://localhost:8000/api/v1/health
 
 # Prometheus health
-curl http://localhost:9090/-/healthy
+curl http://localhost:9091/-/healthy
 
 # Grafana health
 curl http://localhost:3000/api/health
@@ -39,7 +39,7 @@ curl http://localhost:3000/api/health
 
 Open your browser and navigate to:
 ```
-http://localhost:9090
+http://localhost:9091
 ```
 
 ### 2. Verify Targets
@@ -47,7 +47,7 @@ http://localhost:9090
 Navigate to **Status → Targets** to verify all endpoints are being scraped:
 
 ✅ **Expected targets**:
-- `deeplake-api` (UP) - http://deeplake-api:9090/metrics
+- `deeplake-api` (UP) - http://deeplake-api:9091/metrics
 - `redis` (UP) - http://redis:6379/metrics
 - `node-exporter` (UP) - http://node-exporter:9100/metrics
 
@@ -188,7 +188,7 @@ Navigate to **Configuration → Data Sources**:
 ✅ **Expected data source**:
 - Name: `Prometheus`
 - Type: `Prometheus`
-- URL: `http://prometheus:9090`
+- URL: `http://prometheus:9091`
 - Status: ✅ (green checkmark after clicking "Test")
 
 ### 3. Import Dashboards
@@ -322,7 +322,7 @@ def check_service(name, url, expected_status=200):
             "error": str(e)
         }
 
-def check_prometheus_metrics(base_url="http://localhost:9090"):
+def check_prometheus_metrics(base_url="http://localhost:9091"):
     """Verify Prometheus is collecting metrics"""
     metrics_to_check = [
         "http_requests_total",
@@ -382,7 +382,7 @@ def main():
     print("\n📊 Service Health Checks:")
     services = [
         ("API", "http://localhost:8000/api/v1/health"),
-        ("Prometheus", "http://localhost:9090/-/healthy"),
+        ("Prometheus", "http://localhost:9091/-/healthy"),
         ("Grafana", "http://localhost:3000/api/health"),
         ("AlertManager", "http://localhost:9093/-/healthy")
     ]
@@ -441,19 +441,19 @@ python3 verify_monitoring.py
 1. **Check target configuration**:
    ```bash
    # View Prometheus config
-   curl http://localhost:9090/api/v1/status/config
+   curl http://localhost:9091/api/v1/status/config
    ```
 
 2. **Verify metrics endpoint**:
    ```bash
    # Check if API is exposing metrics
-   curl http://localhost:9090/metrics
+   curl http://localhost:9091/metrics
    ```
 
 3. **Check network connectivity**:
    ```bash
    # From Prometheus container
-   docker exec prometheus curl http://deeplake-api:9090/metrics
+   docker exec prometheus curl http://deeplake-api:9091/metrics
    ```
 
 ### Grafana Shows "No Data"

@@ -47,7 +47,7 @@ python3 markdown_server.py
 | **Monitoring Dashboard** | http://localhost:8080 | Main observability hub |
 | **API Service** | http://localhost:8000 | Main application API |
 | **Grafana** | http://localhost:3000 | Dashboards and visualization |
-| **Prometheus** | http://localhost:9090 | Metrics collection |
+| **Prometheus** | http://localhost:9091 | Metrics collection |
 | **AlertManager** | http://localhost:9093 | Alert routing |
 
 ## 📊 Dashboard Features
@@ -218,7 +218,7 @@ docker-compose logs monitoring-dashboard
 ```bash
 # Test individual service health
 curl http://localhost:8000/api/v1/health
-curl http://localhost:9090/-/healthy
+curl http://localhost:9091/-/healthy
 curl http://localhost:3000/api/health
 ```
 

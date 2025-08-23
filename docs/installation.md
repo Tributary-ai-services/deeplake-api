@@ -121,7 +121,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - "9090:9090"
+      - "9090:9091"
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -727,7 +727,7 @@ rate_limiting:
 
 monitoring:
   prometheus_enabled: true
-  metrics_port: 9090
+  metrics_port 9091
   log_level: "INFO"
   log_format: "structured"
 

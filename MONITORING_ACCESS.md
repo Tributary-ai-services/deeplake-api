@@ -20,7 +20,7 @@ If you're running in WSL2, Docker Desktop, or a remote environment, you'll need 
 - **API Docs**: http://localhost:8000/docs
 - **Health Check**: http://localhost:8000/api/v1/health
 - **Grafana**: http://localhost:3000 (admin/admin)
-- **Prometheus**: http://localhost:9090
+- **Prometheus**: http://localhost:9091
 - **AlertManager**: http://localhost:9093
 
 ### **For WSL/Remote Access:**
@@ -28,7 +28,7 @@ Replace `localhost` with your WSL IP address (get with `hostname -I`):
 - **API Service**: http://YOUR_WSL_IP:8000
 - **API Docs**: http://YOUR_WSL_IP:8000/docs
 - **Grafana**: http://YOUR_WSL_IP:3000 (admin/admin)
-- **Prometheus**: http://YOUR_WSL_IP:9090
+- **Prometheus**: http://YOUR_WSL_IP:9091
 - **AlertManager**: http://YOUR_WSL_IP:9093
 - **Monitoring Dashboard**: http://YOUR_WSL_IP:8080/monitoring-dashboard.html
 
@@ -43,7 +43,7 @@ Run these commands in **Windows PowerShell as Administrator**:
 # Forward all monitoring ports
 netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=172.x.x.x
 netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=3000 connectaddress=172.x.x.x
-netsh interface portproxy add v4tov4 listenport=9090 listenaddress=0.0.0.0 connectport=9090 connectaddress=172.x.x.x
+netsh interface port 9091 connectaddress=172.x.x.x
 netsh interface portproxy add v4tov4 listenport=9093 listenaddress=0.0.0.0 connectport=9093 connectaddress=172.x.x.x
 
 # Replace 172.x.x.x with your WSL IP (get it with: wsl hostname -I)
@@ -52,7 +52,7 @@ netsh interface portproxy add v4tov4 listenport=9093 listenaddress=0.0.0.0 conne
 ### **SSH Tunnel (Remote Server):**
 ```bash
 # Forward all ports through SSH tunnel
-ssh -L 8000:localhost:8000 -L 3000:localhost:3000 -L 9090:localhost:9090 -L 9093:localhost:9093 user@your-server
+ssh -L 8000:localhost:8000 -L 3000:localhost:3000 -L 9090:localhost:9091 -L 9093:localhost:9093 user@your-server
 ```
 
 ### **Docker Desktop:**
@@ -69,7 +69,7 @@ Docker Desktop should automatically forward ports. If not:
 ```bash
 # Check if services respond
 curl -s http://localhost:8000/api/v1/health
-curl -s http://localhost:9090/-/healthy  
+curl -s http://localhost:9091/-/healthy  
 curl -s http://localhost:3000/api/health
 curl -s http://localhost:9093/-/healthy
 ```
@@ -85,7 +85,7 @@ ip route show | grep -i default | awk '{ print $3}'
 ### **Check Windows Firewall (if needed):**
 ```powershell
 # Allow ports through Windows Firewall
-New-NetFirewallRule -DisplayName "Monitoring Ports" -Direction Inbound -Protocol TCP -LocalPort 8000,3000,9090,9093 -Action Allow
+New-NetFirewallRule -DisplayName "Monitoring Port 9091,9093 -Action Allow
 ```
 
 ---

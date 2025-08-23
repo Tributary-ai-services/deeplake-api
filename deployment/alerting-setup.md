@@ -12,7 +12,7 @@ The alerting system consists of:
 
 ## Components
 
-### 1. Prometheus (Port 9090)
+### 1. Prometheus (Port 9091)
 - Scrapes metrics from DeepLake API service
 - Evaluates alert rules defined in `prometheus-alerts.yml`
 - Sends alerts to Alertmanager
@@ -107,7 +107,7 @@ docker-compose logs -f prometheus
 
 ### 4. Verify Setup
 
-1. **Prometheus**: Visit http://localhost:9090
+1. **Prometheus**: Visit http://localhost:9091
    - Check Status > Targets to ensure all targets are up
    - Check Alerts to see configured rules
 
@@ -208,10 +208,10 @@ Edit the expressions in `deployment/prometheus-alerts.yml`:
 ### 1. Test Alert Rules
 ```bash
 # Access Prometheus UI
-curl http://localhost:9090/alerts
+curl http://localhost:9091/alerts
 
 # Force alert evaluation
-curl -X POST http://localhost:9090/-/reload
+curl -X POST http://localhost:9091/-/reload
 ```
 
 ### 2. Test Notifications
@@ -237,7 +237,7 @@ curl -X POST http://localhost:9093/api/v1/alerts \
 docker-compose stop deeplake-service
 
 # Check alert status
-curl http://localhost:9090/api/v1/alerts
+curl http://localhost:9091/api/v1/alerts
 ```
 
 ## Monitoring Best Practices
@@ -262,7 +262,7 @@ curl http://localhost:9090/api/v1/alerts
 ### Common Issues
 
 1. **Alerts not firing**
-   - Check Prometheus targets: http://localhost:9090/targets
+   - Check Prometheus targets: http://localhost:9091/targets
    - Verify alert rule syntax
    - Check metric names and labels
 

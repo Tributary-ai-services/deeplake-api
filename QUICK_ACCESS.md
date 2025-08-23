@@ -15,7 +15,7 @@ http://localhost:8080/monitoring-dashboard.html
 # Services
 http://localhost:8000/docs    # API Documentation
 http://localhost:3000         # Grafana (admin/admin)  
-http://localhost:9090         # Prometheus
+http://localhost:9091         # Prometheus
 http://localhost:9093         # AlertManager
 ```
 
@@ -29,7 +29,7 @@ http://172.27.163.114:8080/monitoring-dashboard.html
 # Services  
 http://172.27.163.114:8000/docs    # API Documentation
 http://172.27.163.114:3000         # Grafana (admin/admin)
-http://172.27.163.114:9090         # Prometheus  
+http://172.27.163.114:9091         # Prometheus  
 http://172.27.163.114:9093         # AlertManager
 ```
 
@@ -74,7 +74,7 @@ netstat -tlnp | grep :8080
 ### **Test individual services:**
 ```bash
 curl http://172.27.163.114:8000/api/v1/health  # API
-curl http://172.27.163.114:9090/-/healthy      # Prometheus  
+curl http://172.27.163.114:9091/-/healthy      # Prometheus  
 curl http://172.27.163.114:3000/api/health     # Grafana
 curl http://172.27.163.114:9093/-/healthy      # AlertManager
 ```
