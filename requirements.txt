@@ -16,6 +16,7 @@ tenacity>=8.2.0
 structlog>=23.2.0
 click>=8.1.0
 passlib[bcrypt]>=1.7.4
+aiofiles>=23.0.0
 
 # Embedding services
 openai>=1.0.0

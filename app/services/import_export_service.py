@@ -547,7 +547,7 @@ class ImportExportService(LoggingMixin):
                         escaped_row = []
                         for value in row:
                             if ',' in str(value) or '"' in str(value):
-                                escaped_row.append(f'"{str(value).replace('"', '""')}"')
+                                escaped_row.append(f'"{str(value).replace(chr(34), chr(34)+chr(34))}"')
                             else:
                                 escaped_row.append(str(value))
                         
