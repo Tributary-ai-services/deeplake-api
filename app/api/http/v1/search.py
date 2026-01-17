@@ -65,9 +65,12 @@ async def search_vectors(
         
         if cached_results:
             metrics_service.record_cache_operation("get", "hit")
+            # Handle both old (list) and new (dict) cache formats
+            if isinstance(cached_results, list) and len(cached_results) > 0:
+                cached_results = cached_results[0]
             metrics_service.record_search_query(
-                dataset_id, "vector", time.time() - start_time, 
-                len(cached_results), 0, tenant_id
+                dataset_id, "vector", time.time() - start_time,
+                len(cached_results.get("results", [])) if isinstance(cached_results, dict) else 0, 0, tenant_id
             )
             return SearchResponse.model_validate(cached_results)
         
@@ -83,8 +86,8 @@ async def search_vectors(
         
         # Cache the results
         await cache_manager.cache_search_results(
-            dataset_id, query_hash, options_hash, 
-            [search_response.model_dump()], tenant_id
+            dataset_id, query_hash, options_hash,
+            search_response.model_dump(), tenant_id
         )
         
         # Update metrics
@@ -178,9 +181,12 @@ async def search_by_text(
         
         if cached_results:
             metrics_service.record_cache_operation("get", "hit")
+            # Handle both old (list) and new (dict) cache formats
+            if isinstance(cached_results, list) and len(cached_results) > 0:
+                cached_results = cached_results[0]
             metrics_service.record_search_query(
-                dataset_id, "text", time.time() - start_time, 
-                len(cached_results), 0, tenant_id
+                dataset_id, "text", time.time() - start_time,
+                len(cached_results.get("results", [])) if isinstance(cached_results, dict) else 0, 0, tenant_id
             )
             return SearchResponse.model_validate(cached_results)
         
@@ -196,8 +202,8 @@ async def search_by_text(
         
         # Cache the results
         await cache_manager.cache_search_results(
-            dataset_id, text_hash, options_hash, 
-            [search_response.model_dump()], tenant_id
+            dataset_id, text_hash, options_hash,
+            search_response.model_dump(), tenant_id
         )
         
         # Update metrics
